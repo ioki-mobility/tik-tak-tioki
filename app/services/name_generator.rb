@@ -19,6 +19,11 @@ class NameGenerator
     @objects ||= read_words_from_file("objects.txt")
   end
 
+  def self.reset_cache!
+    @predicates = nil
+    @objects = nil
+  end
+
   private
 
   def self.read_words_from_file(filename)

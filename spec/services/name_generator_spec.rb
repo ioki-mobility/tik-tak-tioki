@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe NameGenerator do
+  before(:each) do
+    NameGenerator.reset_cache!
+  end
+
   context 'caching dictionary files' do
     it 'only reads the predicates files once' do
       expect(File).to receive(:read).once.and_call_original
@@ -9,6 +13,7 @@ RSpec.describe NameGenerator do
     end
 
     it 'only reads the objects files once' do
+
       expect(File).to receive(:read).once.and_call_original
       NameGenerator.objects
       NameGenerator.objects
