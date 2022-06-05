@@ -3,7 +3,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
     create_table :games, id: :uuid do |t|
       t.string :next_move_token, null: false
       t.string :name, null: false
-      t.string :board, array: true, default: %w(F F F F F F F F F), null: false
+      t.string :board, array: true, default: %w(f f f f f f f f f), null: false
       t.string :state, default: "waiting_for_other_player", null: false
 
       t.timestamps

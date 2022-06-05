@@ -16,9 +16,9 @@ RSpec.describe Game, type: :model do
     it 'should be a board with free fields by default' do
       game = Game.new
 
-      expect(game.board).to eql(["F", "F", "F",
-                                 "F", "F", "F",
-                                 "F", "F", "F"
+      expect(game.board).to eql(["f", "f", "f",
+                                 "f", "f", "f",
+                                 "f", "f", "f"
                                 ])
     end
   end
@@ -86,25 +86,25 @@ RSpec.describe Game, type: :model do
         expect(game).to be_valid
 
         # set 10 fields
-        game.board = ("F" * 10).split("")
+        game.board = ("f" * 10).split("")
         expect(game).not_to be_valid
 
         # set 8 fields
-        game.board = ("F" * 8).split("")
+        game.board = ("f" * 8).split("")
         expect(game).not_to be_valid
 
         # set 9 fields
-        game.board = ("F" * 9).split("")
+        game.board = ("f" * 9).split("")
         expect(game).to be_valid
       end
 
       it 'only allows f, x and o as values' do
         expect(game).to be_valid
 
-        game.board[1] = "X"
+        game.board[1] = "x"
         expect(game).to be_valid
 
-        game.board[1] = "O"
+        game.board[1] = "o"
         expect(game).to be_valid
 
         game.board[1] = nil
@@ -113,7 +113,7 @@ RSpec.describe Game, type: :model do
         game.board[1] = ""
         expect(game).not_to be_valid
 
-        %w(A Z $ 0 1).each do |value|
+        %w(X O F A Z $ 0 1).each do |value|
           game.board[1] = value
           expect(game).not_to be_valid
         end

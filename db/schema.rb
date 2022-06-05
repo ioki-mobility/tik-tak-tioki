@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_152211) do
   create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "next_move_token", null: false
     t.string "name", null: false
-    t.string "board", default: ["F", "F", "F", "F", "F", "F", "F", "F", "F"], null: false, array: true
+    t.string "board", default: ["f", "f", "f", "f", "f", "f", "f", "f", "f"], null: false, array: true
     t.string "state", default: "waiting_for_other_player", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

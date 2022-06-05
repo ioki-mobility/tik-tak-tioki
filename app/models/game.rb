@@ -1,4 +1,6 @@
 class Game < ApplicationRecord
+  BOARD_FIELD_VALUES = ["x", "o", "f"].freeze
+
   has_many :players
 
   has_secure_token :next_move_token
@@ -37,7 +39,7 @@ class Game < ApplicationRecord
   end
 
   def validate_board_values
-    valid_values = %w(F X O)
+    valid_values = BOARD_FIELD_VALUES
 
     if !board.is_a?(Array)
       return errors.add(:board, :invalid)

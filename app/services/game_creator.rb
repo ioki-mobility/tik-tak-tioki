@@ -1,10 +1,10 @@
 class GameCreator
   def build
-    Game.new do |g|
-      g.name = random_name
-      player_x = g.players.build(role: "x")
-      player_o = g.players.build(role: "o")
-      g.active_role = ["x", "o"].sample
+    Game.new do |game|
+      game.name = random_name
+      player_x = game.players.build(role: "x")
+      player_o = game.players.build(role: "o")
+      game.active_role = ["x", "o"].sample
     end
   end
 
