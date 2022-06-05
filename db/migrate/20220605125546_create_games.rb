@@ -1,6 +1,6 @@
 class CreateGames < ActiveRecord::Migration[7.0]
   def change
-    create_table :games do |t|
+    create_table :games, id: :uuid do |t|
       t.string :next_move_token, null: false
       t.string :name, null: false
       t.string :board, array: true, default: %w(F F F F F F F F F), null: false

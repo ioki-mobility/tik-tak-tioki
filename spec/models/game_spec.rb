@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
+  it { should have_many(:players) }
+
   describe 'next_move_token' do
     it { should have_secure_token(:next_move_token) }
     it { should have_db_index(:next_move_token).unique(true) }
@@ -37,11 +39,45 @@ RSpec.describe Game, type: :model do
 
   describe 'validations' do
     subject(:game) do
-      Game.new(name: "ABC")
+      GameCreator.new.build
     end
 
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:state) }
+
+    describe 'player validations' do
+      it 'does not allow more than two players' do
+        expect(game).to be_valid
+
+        game.players.build(role: :x)
+        expect(game).not_to be_valid
+        expect(game.errors.messages).to have_key :players
+      end
+
+      it 'does not allow less than two players' do
+        expect(game).to be_valid
+
+        game.players.first.game = nil
+        expect(game).not_to be_valid
+        expect(game.errors.messages).to have_key :players
+      end
+
+      it 'needs a player with role x' do
+        expect(game).to be_valid
+
+        game.player_x.role = nil
+        expect(game).not_to be_valid
+        expect(game.errors.messages).to have_key :player_x
+      end
+
+      it 'needs a player with role o' do
+        expect(game).to be_valid
+
+        game.player_o.role = nil
+        expect(game).not_to be_valid
+        expect(game.errors.messages).to have_key :player_o
+      end
+    end
 
     describe 'board validations' do
       it { should validate_presence_of(:board) }
@@ -62,7 +98,7 @@ RSpec.describe Game, type: :model do
         expect(game).to be_valid
       end
 
-      it 'only allows F, X and O as values' do
+      it 'only allows f, x and o as values' do
         expect(game).to be_valid
 
         game.board[1] = "X"
@@ -81,6 +117,22 @@ RSpec.describe Game, type: :model do
           game.board[1] = value
           expect(game).not_to be_valid
         end
+      end
+    end
+
+    describe 'active_player' do
+      subject(:game) do
+        GameCreator.new.build
+      end
+
+      it 'returns player x when the active role is x' do
+        game.active_role = "x"
+        expect(game.active_player).to eql(game.player_x)
+      end
+
+      it 'returns player o when the active role is o' do
+        game.active_role = "o"
+        expect(game.active_player).to eql(game.player_o)
       end
     end
   end

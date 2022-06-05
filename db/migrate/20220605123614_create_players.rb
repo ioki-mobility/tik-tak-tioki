@@ -7,6 +7,7 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
     add_index :players, :token, unique: true
   end
 end
