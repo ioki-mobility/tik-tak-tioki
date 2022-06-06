@@ -11,11 +11,13 @@ class GameOperationResult
 
   def success!
     self.success = true
+    return self
   end
 
   def error!(message)
     self.success = false
     self.error_message = message
+    return self
   end
 
   def successful?

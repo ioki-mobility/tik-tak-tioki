@@ -16,16 +16,16 @@ RSpec.describe GameOperationResult do
 
   context 'successful operation' do
     it 'can be marked as successful' do
-      result.success!
-      expect(result).to be_successful
+      outcome = result.success!
+      expect(outcome).to be_successful
     end
   end
 
   context 'failed operation' do
     it 'can be marked as failed with an explaining message' do
-      result.error! "No space left!"
-      expect(result).to be_failed
-      expect(result.error_message).to eql("No space left!")
+      outcome = result.error! "No space left!"
+      expect(outcome).to be_failed
+      expect(outcome.error_message).to eql("No space left!")
     end
   end
 
