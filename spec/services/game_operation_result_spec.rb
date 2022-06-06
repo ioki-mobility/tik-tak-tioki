@@ -28,16 +28,4 @@ RSpec.describe GameOperationResult do
       expect(outcome.error_message).to eql("No space left!")
     end
   end
-
-
-  # it 'generates randomly the active player' do
-  #   games = 10.times.map { described_class.new.build }
-
-  #   player_x_chosen_once = games.find { |g| g.active_player == g.player_x }
-  #   expect(player_x_chosen_once).to be
-
-  #   player_o_chosen_once = games.find { |g| g.active_player == g.player_o }
-  #   expect(player_o_chosen_once).to be
-  # end
-
 end

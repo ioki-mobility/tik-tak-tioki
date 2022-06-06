@@ -12,7 +12,7 @@ class GameJoiner
     end
 
     game.tap do |g|
-      g.state = 'playing'
+      g.state = Game.states[:playing]
       g.active_role = %w[x o].sample
       g.save!
     end

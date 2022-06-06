@@ -22,10 +22,8 @@ RSpec.describe GameJoiner do
     end
 
     it 'randomly assigns the active player' do
-      games = 10.times.map do
-        game = GameCreator.new.create!.game
-        described_class.new(game).join!
-      end.map(&:game)
+      games = 10.times.map { Factory.create_game! }
+
 
       player_x_chosen_once = games.find { |g| g.active_player == g.player_x }
       expect(player_x_chosen_once).to be
