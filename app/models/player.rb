@@ -6,5 +6,5 @@ class Player < ApplicationRecord
   enum :role, {
          o: 'o',
          x: 'x'
-       }, scopes: false, suffix: true
+       }, scopes: false, prefix: :role
 end

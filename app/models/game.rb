@@ -28,11 +28,11 @@ class Game < ApplicationRecord
   validate :validate_board_values
 
   def player_x
-    players.find {|p| p.x_role? }
+    players.find {|p| p.role_x? }
   end
 
   def player_o
-    players.find {|p| p.o_role? }
+    players.find {|p| p.role_o? }
   end
 
   def active_player

@@ -9,11 +9,14 @@ RSpec.describe Player, type: :model do
   end
 
   describe 'role' do
-    xit do
-      should define_enum_for(:role).
-               backed_by_column_of_type(:string).
-               with_suffix.
-               with_values({ o: 'o', x: 'x' })
+    it 'provides enum prefix methods' do
+      player = Player.new(role: "o")
+      expect(player.role_x?).to be false
+      expect(player.role_o?).to be true
+
+      player.role = "x"
+      expect(player.role_x?).to be true
+      expect(player.role_o?).to be false
     end
   end
 end
