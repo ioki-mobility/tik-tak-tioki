@@ -16,12 +16,12 @@ class Game < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :state
 
-  validates_presence_of :active_role, if: :playing?
-
   validates_presence_of :player_x
   validates_presence_of :player_o
-  validates_presence_of :active_player
   validates_length_of :players, is: 2
+
+  validates_presence_of :active_player, if: :playing?
+  validates_presence_of :active_role, if: :playing?
 
   validates_presence_of :board
   validates_length_of :board, is: 9
