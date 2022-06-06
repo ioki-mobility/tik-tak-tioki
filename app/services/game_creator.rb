@@ -1,17 +1,18 @@
 class GameCreator
   def build
-    Game.new do |game|
-      game.name = random_name
-      player_x = game.players.build(role: "x")
-      player_o = game.players.build(role: "o")
-      game.active_role = ["x", "o"].sample
+    Game.new do |g|
+      g.name = random_name
+      g.players.build(role: "x")
+      g.players.build(role: "o")
     end
   end
 
   def create!
-    build.tap do |game|
-      game.save!
+    game = build.tap do |g|
+      g.save!
     end
+
+    GameOperationResult.new(game, game.player_x).success!
   end
 
   def random_name

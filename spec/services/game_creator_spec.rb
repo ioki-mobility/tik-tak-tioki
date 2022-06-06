@@ -3,25 +3,38 @@ require "rails_helper"
 RSpec.describe GameCreator do
   subject { described_class.new }
 
-  it 'builds a valid game' do
-    game = subject.build
+  describe 'build' do
+    it 'builds a valid game' do
+      game = subject.build
 
-    expect(game.players.length).to eql(2)
-    expect(game).to be_valid
+      expect(game.players.length).to eql(2)
+      expect(game).to be_valid
+    end
+
+    it 'does not set an active player' do
+      game = subject.build
+
+      expect(game.active_player).to be_nil
+    end
   end
 
-  it 'generates randomly the active player' do
-    games = 10.times.map { described_class.new.build }
+  describe 'create!' do
+    subject (:result) { described_class.new.create! }
 
-    player_x_chosen_once = games.find { |g| g.active_player == g.player_x }
-    expect(player_x_chosen_once).to be
+    it 'responds with a positive result' do
+      expect(result).to be_successful
+    end
 
-    player_o_chosen_once = games.find { |g| g.active_player == g.player_o }
-    expect(player_o_chosen_once).to be
-  end
+    it 'always sets player x as the acting player' do
+      expect(result.acting_player).to be(result.game.player_x)
+    end
 
-  it 'generates a persisted' do
-    game = subject.create!
-    expect(game).to be_persisted
+    it 'generates a persisted game' do
+      expect(result.game).to be_persisted
+    end
+
+    it 'sets the game to awaiting_join state' do
+      expect(result.game).to be_awaiting_join
+    end
   end
 end
