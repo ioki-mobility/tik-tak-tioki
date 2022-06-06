@@ -27,11 +27,10 @@ RSpec.describe Game, type: :model do
     it do
       should define_enum_for(:state)
         .with_values({
-                       waiting_for_other_player: 'waiting_for_other_player',
-                       player_x_turn: 'player_x_turn',
-                       player_o_turn: 'player_o_turn',
-                       player_x_win: 'player_x_win',
-                       player_o_win: 'player_o_win',
+                       awaiting_join: 'awaiting_join',
+                       playing: 'playing',
+                       win_by_player_x: 'win_by_player_x',
+                       win_by_player_o: 'win_by_player_o',
                        draw: 'draw'
                      }).backed_by_column_of_type(:string)
     end
@@ -76,6 +75,18 @@ RSpec.describe Game, type: :model do
         game.player_o.role = nil
         expect(game).not_to be_valid
         expect(game.errors.messages).to have_key :player_o
+      end
+    end
+
+    describe 'active_role' do
+      context 'in a playing game' do
+        before { allow(subject).to receive(:playing?).and_return(true) }
+        it { is_expected.to validate_presence_of(:active_role) }
+      end
+
+      context 'in a not currently playing game' do
+        before { allow(subject).to receive(:playing?).and_return(false) }
+        it { is_expected.not_to validate_presence_of(:active_role) }
       end
     end
 

@@ -16,10 +16,4 @@ RSpec.describe Player, type: :model do
                with_values({ o: 'o', x: 'x' })
     end
   end
-
-  describe 'validations' do
-    subject(:player) do
-      GameCreator.new.build.players.first
-    end
-  end
 end

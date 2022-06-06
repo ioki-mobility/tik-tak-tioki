@@ -19,10 +19,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_05_152211) do
     t.string "next_move_token", null: false
     t.string "name", null: false
     t.string "board", default: ["f", "f", "f", "f", "f", "f", "f", "f", "f"], null: false, array: true
-    t.string "state", default: "waiting_for_other_player", null: false
+    t.string "state", default: "awaiting_join", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "active_role", null: false
+    t.string "active_role"
     t.index ["name"], name: "index_games_on_name", unique: true
     t.index ["next_move_token"], name: "index_games_on_next_move_token", unique: true
     t.index ["state"], name: "index_games_on_state"

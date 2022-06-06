@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe GameCreator do
-  subject { GameCreator.new }
+  subject { described_class.new }
 
   it 'builds a valid game' do
     game = subject.build

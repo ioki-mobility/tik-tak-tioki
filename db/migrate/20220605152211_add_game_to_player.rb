@@ -4,7 +4,7 @@ class AddGameToPlayer < ActiveRecord::Migration[7.0]
 
     add_column :players, :role, :string, null: false
 
-    add_column :games, :active_role, :string, null: false
+    add_column :games, :active_role, :string
 
     add_index :players, [:game_id, :role], unique: true
   end

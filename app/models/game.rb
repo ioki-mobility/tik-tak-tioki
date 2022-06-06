@@ -6,16 +6,17 @@ class Game < ApplicationRecord
   has_secure_token :next_move_token
 
   enum :state, {
-    waiting_for_other_player: 'waiting_for_other_player',
-    player_x_turn: 'player_x_turn',
-    player_o_turn: 'player_o_turn',
-    player_x_win: 'player_x_win',
-    player_o_win: 'player_o_win',
+    awaiting_join: 'awaiting_join',
+    playing: 'playing',
+    win_by_player_x: 'win_by_player_x',
+    win_by_player_o: 'win_by_player_o',
     draw: 'draw'
   }
 
   validates_presence_of :name
   validates_presence_of :state
+
+  validates_presence_of :active_role, if: :playing?
 
   validates_presence_of :player_x
   validates_presence_of :player_o
