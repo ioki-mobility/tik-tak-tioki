@@ -36,23 +36,32 @@ class GameUpdater
       return result.error!("Field is not free")
     end
 
-    # mark field
+    game.board[field] = acting_player.role
 
-    # GameStateForwarder/Interpreter won or continue?
+    game.state = GameStateCalculator.new(game).new_state
 
-    # if NOT finished
-    # - switch active role
-    # - keep state
+    update_active_role!
 
-    # if finished
-    # - nullify active role
-    # - move state to won/draw
+    # regenerate next move token anyways (also to invalidate it)
+    game.regenerate_next_move_token
 
-    # anyways
-    # - regenerate next move token (also to invalidate it)
-    # save game
+    game.save!
 
     result.success!
+  end
+
+  private
+
+  def update_active_role!
+    if game.playing?
+      if game.active_role == "x"
+        game.active_role = "o"
+      else
+        game.active_role = "x"
+      end
+    else
+      game.active_role = nil
+    end
   end
 
   def next_move_token
