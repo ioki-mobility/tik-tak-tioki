@@ -1,13 +1,13 @@
 class AsciiBoardState
   VALUES = %w[x o f]
 
-  TEMPLATE = ["|---+---+---|",
-              "| 0 | 1 | 2 |",
-              "|---+---+---|",
-              "| 3 | 4 | 5 |",
-              "|---+---+---|",
-              "| 6 | 7 | 8 |",
-              "|---+---+---|"]
+  TEMPLATE = ['|---+---+---|',
+              '| 0 | 1 | 2 |',
+              '|---+---+---|',
+              '| 3 | 4 | 5 |',
+              '|---+---+---|',
+              '| 6 | 7 | 8 |',
+              '|---+---+---|']
 
   def self.encode(board)
     new.encode(board)
@@ -24,7 +24,7 @@ class AsciiBoardState
     #   "2" => "o",
     #   ...
     # }
-    sub_values = board.each_with_object({}).with_index {|(val, acc), index| acc[index.to_s] = val }
+    sub_values = board.each_with_object({}).with_index { |(val, acc), index| acc[index.to_s] = val }
 
     TEMPLATE.map { |line| line.gsub(/[0-8]/, sub_values) }
   end
