@@ -57,7 +57,7 @@ RSpec.describe GameUpdater do
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("No field to mark provided")
+      expect(result.error_message).to eql("No valid field to mark provided")
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)

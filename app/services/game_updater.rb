@@ -29,7 +29,7 @@ class GameUpdater
     end
 
     if !field.present?
-      return result.error!("No field to mark provided")
+      return result.error!("No valid field to mark provided")
     end
 
     if game.board[field] != "f"
