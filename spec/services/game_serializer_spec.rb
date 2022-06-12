@@ -35,6 +35,10 @@ RSpec.describe GameSerializer do
         expect(result[:state]).to eql('awaiting_join')
       end
 
+      it 'renders the player_role for player x' do
+        expect(result[:player_role]).to eql("x")
+      end
+
       it 'renders the player_token for player x' do
         expect(result[:player_token]).to eql(game.player_x.token)
       end
@@ -54,6 +58,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('your_turn')
         end
 
+        it 'renders the player_role for player x' do
+          expect(result[:player_role]).to eql("x")
+        end
+
         it 'renders the player_token for player x' do
           expect(result[:player_token]).to eql(game.player_x.token)
         end
@@ -70,6 +78,10 @@ RSpec.describe GameSerializer do
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('their_turn')
+        end
+
+        it 'renders the player_role for player x' do
+          expect(result[:player_role]).to eql("x")
         end
 
         it 'renders the player_token for player x' do
@@ -92,6 +104,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('you_won')
         end
 
+        it 'renders the player_role for player x' do
+          expect(result[:player_role]).to eql("x")
+        end
+
         it 'renders the player_token for player x' do
           expect(result[:player_token]).to eql(game.player_x.token)
         end
@@ -110,6 +126,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('they_won')
         end
 
+        it 'renders the player_role for player x' do
+          expect(result[:player_role]).to eql("x")
+        end
+
         it 'renders the player_token for player x' do
           expect(result[:player_token]).to eql(game.player_x.token)
         end
@@ -126,6 +146,10 @@ RSpec.describe GameSerializer do
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('draw')
+        end
+
+        it 'renders the player_role for player x' do
+          expect(result[:player_role]).to eql("x")
         end
 
         it 'renders the player_token for player x' do
@@ -152,6 +176,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('their_turn')
         end
 
+        it 'renders the player_role for player o' do
+          expect(result[:player_role]).to eql("o")
+        end
+
         it 'renders the player_token for player o' do
           expect(result[:player_token]).to eql(game.player_o.token)
         end
@@ -168,6 +196,10 @@ RSpec.describe GameSerializer do
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('your_turn')
+        end
+
+        it 'renders the player_role for player o' do
+          expect(result[:player_role]).to eql("o")
         end
 
         it 'renders the player_token for player o' do
@@ -190,6 +222,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('they_won')
         end
 
+        it 'renders the player_role for player o' do
+          expect(result[:player_role]).to eql("o")
+        end
+
         it 'renders the player_token for player o' do
           expect(result[:player_token]).to eql(game.player_o.token)
         end
@@ -208,6 +244,10 @@ RSpec.describe GameSerializer do
           expect(result[:state]).to eql('you_won')
         end
 
+        it 'renders the player_role for player o' do
+          expect(result[:player_role]).to eql("o")
+        end
+
         it 'renders the player_token for player o' do
           expect(result[:player_token]).to eql(game.player_o.token)
         end
@@ -224,6 +264,10 @@ RSpec.describe GameSerializer do
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('draw')
+        end
+
+        it 'renders the player_role for player o' do
+          expect(result[:player_role]).to eql("o")
         end
 
         it 'renders the player_token for player o' do

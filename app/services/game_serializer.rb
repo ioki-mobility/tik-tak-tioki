@@ -12,6 +12,7 @@ class GameSerializer
       state: state,
       board: game.board,
       player_token: player_token,
+      player_role: acting_player.role,
       next_move_token: next_move_token,
       created_at: game.created_at,
       updated_at: game.updated_at

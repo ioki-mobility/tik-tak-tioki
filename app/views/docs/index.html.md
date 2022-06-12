@@ -42,6 +42,7 @@ The `Game` object is the response of all successful calls to the endpoints and p
   "state": "your_turn",
   "board": ["f", "f", "f", "f", "f", "f", "f", "f", "f"],
   "player_token": "SejhTFP87yTzRogX1vnYiEvq",
+  "player_role": "x",
   "next_move_token": "Zw6xpZzV9yeasuaMg7q69X49",
   "created_at": "2022-06-11T19:57:47.083Z",
   "updated_at": "2022-06-11T19:57:47.083Z"
@@ -92,6 +93,10 @@ There is no registration, each game creates two completely new players.
 Each player gets a `player_token` when they either create or join a fresh game.
 
 This player token needs to be provided for all further calls to identify the player.
+
+#### `player_role` (String)
+
+The role of the current player which is also the mark the player can set on the board, either `x` or `o`.
 
 #### `next_move_token` (String | null)
 
