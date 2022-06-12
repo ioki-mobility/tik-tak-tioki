@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  scope :api, as: "api" do
+    defaults format: :json do
+      get '/game', controller: :games, action: :show
+      post '/game', controller: :games, action: :create
+      post '/join', controller: :games, action: :join
+      post '/move', controller: :games, action: :move
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root "docs#index"
 end
