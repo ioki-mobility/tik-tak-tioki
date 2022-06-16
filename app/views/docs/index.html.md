@@ -213,7 +213,8 @@ POST https://fly.io/tictactoe/games/<game-name>/moves?player_token=<player-token
 <%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
 ```
 
-<article>
-Final note:
-This API is meant to be used at a one-day hackathon. Therefore this API is designed in a way that it can be used in a pragmatic way, even if this might hurt some best practices in REST-API design.
-</article>
+# Debugger
+
+This API comes with a built in debugger
+
+- Use url directly or form

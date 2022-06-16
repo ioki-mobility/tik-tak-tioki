@@ -1,0 +1,70 @@
+<h1>
+  Game <code><%= @game.name %></code> as <mark>player <%= @player.role.upcase %></mark>
+</h1>
+
+<article class="grid">
+  <div>
+    <h2>Game Object</h2>
+    <pre>
+<%= JSON.pretty_generate(GameSerializer.new(@game, @player).as_json) %>
+    </pre>
+  </div>
+  <div>
+    <h2>Board</h2>
+    <pre>
+<%= AsciiBoardState.encode(@game.board).join("\n") %>
+    </pre>
+  </div>
+</article>
+
+<article>
+  <h2>Game Events</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Event</th>
+        <th scope="col">Actor</th>
+        <th scope="col">State</th>
+        <th scope="col">Board</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Game Created</td>
+        <td>Player X</td>
+        <td>`awaiting_join`</td>
+        <td>
+          <pre>
+<%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Game Created</td>
+        <td>Player X</td>
+        <td>`awaiting_join`</td>
+        <td>
+          <pre>
+<%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Game Created</td>
+        <td>Player X</td>
+        <td>`awaiting_join`</td>
+        <td>
+          <pre>
+<%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Cell</td>
+        <td>Cell</td>
+        <td>Cell</td>
+        <td>Cell</td>
+      </tr>
+    </tbody>
+  </table>
+</article>

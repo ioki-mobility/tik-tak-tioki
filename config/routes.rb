@@ -8,5 +8,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :debugger, only: [:index, :show], param: :player_token do
+    collection do
+      post 'view_game'
+    end
+  end
+
   root "docs#index"
 end

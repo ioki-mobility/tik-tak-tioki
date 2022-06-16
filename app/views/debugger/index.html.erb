@@ -1,0 +1,21 @@
+<h1>Debugger</h1>
+
+<article class="grid">
+  <div>
+    <hgroup>
+      <h2>Play Game</h2>
+      <h3>Enter your <code>player_token</code> to view an existing game.</h3>
+    </hgroup>
+  </div>
+  <div>
+    <% flash.each do |type, msg| %>
+      <p>
+        <mark><%= msg %></mark>
+      </p>
+    <% end %>
+    <%= form_tag(view_game_debugger_index_path) do -%>
+      <%= text_field_tag "player_token", nil, placeholder: "player_token", required: true  %>
+      <%= button_tag "View Game", class: "contrast" %>
+    <% end -%>
+  </div>
+</article>
