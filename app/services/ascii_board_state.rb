@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AsciiBoardState
-  VALUES = %w[x o f]
+  VALUES = %w[x o f].freeze
 
   TEMPLATE = ['|---+---+---|',
               '| 0 | 1 | 2 |',
@@ -7,7 +9,7 @@ class AsciiBoardState
               '| 3 | 4 | 5 |',
               '|---+---+---|',
               '| 6 | 7 | 8 |',
-              '|---+---+---|']
+              '|---+---+---|'].freeze
 
   def self.encode(board)
     new.encode(board)

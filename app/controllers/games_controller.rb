@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GamesController < ApplicationController
   skip_forgery_protection
   before_action :load_current_player, only: %i[show move]

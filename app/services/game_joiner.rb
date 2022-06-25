@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameJoiner
   attr_accessor :game
 
@@ -6,9 +8,9 @@ class GameJoiner
   end
 
   def join!
-    if !game.awaiting_join?
+    unless game.awaiting_join?
       result = GameOperationResult.new(game, nil)
-      return result.error!("Game does not await another player to join")
+      return result.error!('Game does not await another player to join')
     end
 
     game.tap do |g|

@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe GameUpdater do
   let!(:game) { Factory.create_game! }
@@ -13,7 +15,7 @@ RSpec.describe GameUpdater do
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("Game is not playing")
+      expect(result.error_message).to eql('Game is not playing')
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)
@@ -35,18 +37,18 @@ RSpec.describe GameUpdater do
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("No next move token provided")
+      expect(result.error_message).to eql('No next move token provided')
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)
     end
 
     it 'fails when wrong next_move token is given' do
-      params[:next_move_token] = "WRONG-TOKEN"
+      params[:next_move_token] = 'WRONG-TOKEN'
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("Invalid next move token")
+      expect(result.error_message).to eql('Invalid next move token')
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)
@@ -57,18 +59,18 @@ RSpec.describe GameUpdater do
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("No valid field to mark provided")
+      expect(result.error_message).to eql('No valid field to mark provided')
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)
     end
 
     it 'fails when field to mark is taken' do
-      game.board[1] = "x"
+      game.board[1] = 'x'
       result = described_class.new(game, game.active_player, params).update!
 
       expect(result).to be_failed
-      expect(result.error_message).to eql("Field is not free")
+      expect(result.error_message).to eql('Field is not free')
 
       expect(result.game).to be(game)
       expect(result.acting_player).to be(game.active_player)
@@ -77,7 +79,7 @@ RSpec.describe GameUpdater do
 
   context 'when updating is allowed and game continues' do
     let(:game) do
-      Factory.create_game!(active_role: "x") do
+      Factory.create_game!(active_role: 'x') do
         <<~BOARD
           |---+---+---|
           | x |   | o |
@@ -122,7 +124,6 @@ RSpec.describe GameUpdater do
       expect(result.game).to be_playing
     end
 
-
     it 'regenerates the next move token' do
       expect(result.game.next_move_token).not_to eql(params[:next_move_token])
     end
@@ -134,7 +135,7 @@ RSpec.describe GameUpdater do
 
   context 'when updating is allowed and game ends with win' do
     let(:game) do
-      Factory.create_game!(active_role: "o") do
+      Factory.create_game!(active_role: 'o') do
         <<~BOARD
           |---+---+---|
           | o |   | o |
@@ -190,7 +191,7 @@ RSpec.describe GameUpdater do
 
   context 'when updating is allowed and game ends with draw' do
     let(:game) do
-      Factory.create_game!(active_role: "x") do
+      Factory.create_game!(active_role: 'x') do
         <<~BOARD
           |---+---+---|
           | o |   | o |

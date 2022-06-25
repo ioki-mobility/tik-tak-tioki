@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameUpdater
   # update game
   # return error or game
@@ -12,29 +14,17 @@ class GameUpdater
   def update!
     result = GameOperationResult.new(game, acting_player)
 
-    if !game.playing?
-      return result.error!("Game is not playing")
-    end
+    return result.error!('Game is not playing') unless game.playing?
 
-    if game.active_player != acting_player
-      return result.error!("It's not the players turn")
-    end
+    return result.error!("It's not the players turn") if game.active_player != acting_player
 
-    if !next_move_token.present?
-       return result.error!("No next move token provided")
-    end
+    return result.error!('No next move token provided') unless next_move_token.present?
 
-    if game.next_move_token != next_move_token
-      return result.error!("Invalid next move token")
-    end
+    return result.error!('Invalid next move token') if game.next_move_token != next_move_token
 
-    if !field.present?
-      return result.error!("No valid field to mark provided")
-    end
+    return result.error!('No valid field to mark provided') unless field.present?
 
-    if game.board[field] != "f"
-      return result.error!("Field is not free")
-    end
+    return result.error!('Field is not free') if game.board[field] != 'f'
 
     game.board[field] = acting_player.role
 
@@ -53,15 +43,13 @@ class GameUpdater
   private
 
   def update_active_role!
-    if game.playing?
-      if game.active_role == "x"
-        game.active_role = "o"
-      else
-        game.active_role = "x"
-      end
-    else
-      game.active_role = nil
-    end
+    game.active_role = if game.playing?
+                         if game.active_role == 'x'
+                           'o'
+                         else
+                           'x'
+                         end
+                       end
   end
 
   def next_move_token

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Factory
-  extend self
+  module_function
 
   def build_game
     GameCreator.new.build
@@ -14,9 +16,7 @@ module Factory
       game = joiner_result.game
     end
 
-    if block_given?
-      game.board = AsciiBoardState.decode(yield)
-    end
+    game.board = AsciiBoardState.decode(yield) if block_given?
 
     if options[:active_role]
       game.active_role = options[:active_role]

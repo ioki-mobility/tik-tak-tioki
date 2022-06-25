@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Game < ApplicationRecord
-  BOARD_FIELD_VALUES = ["x", "o", "f"].freeze
+  BOARD_FIELD_VALUES = %w[x o f].freeze
 
   has_many :players
 
@@ -28,11 +30,11 @@ class Game < ApplicationRecord
   validate :validate_board_values
 
   def player_x
-    players.find {|p| p.role_x? }
+    players.find(&:role_x?)
   end
 
   def player_o
-    players.find {|p| p.role_o? }
+    players.find(&:role_o?)
   end
 
   def active_player
@@ -42,12 +44,8 @@ class Game < ApplicationRecord
   def validate_board_values
     valid_values = BOARD_FIELD_VALUES
 
-    if !board.is_a?(Array)
-      return errors.add(:board, :invalid)
-    end
+    return errors.add(:board, :invalid) unless board.is_a?(Array)
 
-    if board.any?{ |f| valid_values.exclude?(f) }
-      return errors.add(:board, :invalid)
-    end
+    errors.add(:board, :invalid) if board.any? { |f| valid_values.exclude?(f) }
   end
 end

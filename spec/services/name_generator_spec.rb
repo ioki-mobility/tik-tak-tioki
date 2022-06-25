@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe NameGenerator do
   before(:each) do
@@ -13,7 +15,6 @@ RSpec.describe NameGenerator do
     end
 
     it 'only reads the objects files once' do
-
       expect(File).to receive(:read).once.and_call_original
       NameGenerator.objects
       NameGenerator.objects

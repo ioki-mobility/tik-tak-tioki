@@ -1,8 +1,9 @@
-require "rails_helper"
+# frozen_string_literal: true
 
+require 'rails_helper'
 
 RSpec.describe GameSerializer do
-  shared_examples "a rendered game with default values" do
+  shared_examples 'a rendered game with default values' do
     it 'renders the name' do
       expect(subject[:name]).to eql(game.name)
       expect(subject[:name]).to be_a(String)
@@ -29,14 +30,14 @@ RSpec.describe GameSerializer do
     context 'when the game was created and is awaiting player o' do
       before { game.awaiting_join! }
 
-      it_behaves_like "a rendered game with default values"
+      it_behaves_like 'a rendered game with default values'
 
       it 'is awaiting the other player' do
         expect(result[:state]).to eql('awaiting_join')
       end
 
       it 'renders the player_role for player x' do
-        expect(result[:player_role]).to eql("x")
+        expect(result[:player_role]).to eql('x')
       end
 
       it 'renders the player_token for player x' do
@@ -50,16 +51,16 @@ RSpec.describe GameSerializer do
 
     context 'when the game was joined' do
       describe 'and it is player x turn' do
-        before { game.active_role = "x" }
+        before { game.active_role = 'x' }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('your_turn')
         end
 
         it 'renders the player_role for player x' do
-          expect(result[:player_role]).to eql("x")
+          expect(result[:player_role]).to eql('x')
         end
 
         it 'renders the player_token for player x' do
@@ -72,16 +73,16 @@ RSpec.describe GameSerializer do
       end
 
       describe 'and it is player o turn' do
-        before { game.active_role = "o" }
+        before { game.active_role = 'o' }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('their_turn')
         end
 
         it 'renders the player_role for player x' do
-          expect(result[:player_role]).to eql("x")
+          expect(result[:player_role]).to eql('x')
         end
 
         it 'renders the player_token for player x' do
@@ -98,14 +99,14 @@ RSpec.describe GameSerializer do
       describe 'player x won' do
         before { game.win_by_player_x! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('you_won')
         end
 
         it 'renders the player_role for player x' do
-          expect(result[:player_role]).to eql("x")
+          expect(result[:player_role]).to eql('x')
         end
 
         it 'renders the player_token for player x' do
@@ -120,14 +121,14 @@ RSpec.describe GameSerializer do
       describe 'player o won' do
         before { game.win_by_player_o! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('they_won')
         end
 
         it 'renders the player_role for player x' do
-          expect(result[:player_role]).to eql("x")
+          expect(result[:player_role]).to eql('x')
         end
 
         it 'renders the player_token for player x' do
@@ -142,14 +143,14 @@ RSpec.describe GameSerializer do
       describe 'draw' do
         before { game.draw! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('draw')
         end
 
         it 'renders the player_role for player x' do
-          expect(result[:player_role]).to eql("x")
+          expect(result[:player_role]).to eql('x')
         end
 
         it 'renders the player_token for player x' do
@@ -168,16 +169,16 @@ RSpec.describe GameSerializer do
 
     context 'when the game was joined' do
       describe 'and it is player x turn' do
-        before { game.active_role = "x" }
+        before { game.active_role = 'x' }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('their_turn')
         end
 
         it 'renders the player_role for player o' do
-          expect(result[:player_role]).to eql("o")
+          expect(result[:player_role]).to eql('o')
         end
 
         it 'renders the player_token for player o' do
@@ -190,16 +191,16 @@ RSpec.describe GameSerializer do
       end
 
       describe 'and it is player o turn' do
-        before { game.active_role = "o" }
+        before { game.active_role = 'o' }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('your_turn')
         end
 
         it 'renders the player_role for player o' do
-          expect(result[:player_role]).to eql("o")
+          expect(result[:player_role]).to eql('o')
         end
 
         it 'renders the player_token for player o' do
@@ -216,14 +217,14 @@ RSpec.describe GameSerializer do
       describe 'player x won' do
         before { game.win_by_player_x! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('they_won')
         end
 
         it 'renders the player_role for player o' do
-          expect(result[:player_role]).to eql("o")
+          expect(result[:player_role]).to eql('o')
         end
 
         it 'renders the player_token for player o' do
@@ -238,14 +239,14 @@ RSpec.describe GameSerializer do
       describe 'player o won' do
         before { game.win_by_player_o! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('you_won')
         end
 
         it 'renders the player_role for player o' do
-          expect(result[:player_role]).to eql("o")
+          expect(result[:player_role]).to eql('o')
         end
 
         it 'renders the player_token for player o' do
@@ -260,14 +261,14 @@ RSpec.describe GameSerializer do
       describe 'draw' do
         before { game.draw! }
 
-        it_behaves_like "a rendered game with default values"
+        it_behaves_like 'a rendered game with default values'
 
         it 'is awaiting the other player' do
           expect(result[:state]).to eql('draw')
         end
 
         it 'renders the player_role for player o' do
-          expect(result[:player_role]).to eql("o")
+          expect(result[:player_role]).to eql('o')
         end
 
         it 'renders the player_token for player o' do

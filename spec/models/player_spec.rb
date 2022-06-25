@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
@@ -10,11 +12,11 @@ RSpec.describe Player, type: :model do
 
   describe 'role' do
     it 'provides enum prefix methods' do
-      player = Player.new(role: "o")
+      player = Player.new(role: 'o')
       expect(player.role_x?).to be false
       expect(player.role_o?).to be true
 
-      player.role = "x"
+      player.role = 'x'
       expect(player.role_x?).to be true
       expect(player.role_o?).to be false
     end
