@@ -36,7 +36,7 @@ The `Game` object is the response of all successful calls to the endpoints and p
 
 ### Example
 
-```
+```language-json
 {
   "name": "towering-pot-1025",
   "state": "your_turn",
@@ -82,7 +82,7 @@ A single field can have one of these values:
 
 The indices represent the grid like this:
 
-```
+```language-plain
 <%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
 ```
 
@@ -115,9 +115,9 @@ The `created_at` and `updated_at` timestamps are purely informational and should
 
 ### Example
 
-```
+```language-json
 {
-  message: "this did not work :("
+  "message": "this did not work :("
 }
 ```
 
@@ -140,8 +140,9 @@ asdlfjhsdalf dslfkj asdfklsjadfsldakj
 
 **Request**
 
-```
-POST https://fly.io/tictactoe/games
+```language-http
+POST <%= api_game_url %>
+Content-Type: application/json
 ```
 
 **Responses**
@@ -157,8 +158,15 @@ asdlfjhsdalf dslfkj asdfklsjadfsldakj
 
 **Request**
 
+```language-http
+POST <%= api_join_url %>
+Content-Type: application/json
 ```
-POST https://fly.io/tictactoe/games/<existing-game-id>/join
+
+```language-json
+{
+  "name": "<existing-game-name>"
+}
 ```
 
 **Responses**
@@ -167,12 +175,13 @@ POST https://fly.io/tictactoe/games/<existing-game-id>/join
 - `404` The game was not found
 - `422` An `Error` object
 
-## Get a game
+## Load a game
 
 **Request**
 
-```
-GET https://fly.io/tictactoe/games/<game-name>?player_token=<player-token>
+```language-http
+GET <%= api_game_url(params: { player_token: "YOUR-PLAYER-TOKEN" }) %>
+Content-Type: application/json
 ```
 
 **Responses**
@@ -187,12 +196,15 @@ GET https://fly.io/tictactoe/games/<game-name>?player_token=<player-token>
 
 **Request**
 
+```language-http
+POST <%= api_move_url(params: { player_token: "YOUR-PLAYER-TOKEN" }) %>
+Content-Type: application/json
 ```
-POST https://fly.io/tictactoe/games/<game-name>/moves?player_token=<player-token>
 
+```language-json
 {
-  next_move_token: "<next-move-token>"
-  field: "0"
+  "next_move_token": "<next-move-token>"
+  "field": "0"
 }
 ```
 
@@ -209,7 +221,7 @@ POST https://fly.io/tictactoe/games/<game-name>/moves?player_token=<player-token
 
 -----
 
-```
+```language-plain
 <%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
 ```
 

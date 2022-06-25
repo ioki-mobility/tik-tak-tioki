@@ -5,14 +5,18 @@
 <article class="grid">
   <div>
     <h2>Game Object</h2>
-    <pre>
+    <pre class="language-json">
+      <code>
 <%= JSON.pretty_generate(GameSerializer.new(@game, @player).as_json) %>
+      </code>
     </pre>
   </div>
   <div>
     <h2>Board</h2>
-    <pre>
+    <pre class="language-plain">
+      <code>
 <%= AsciiBoardState.encode(@game.board).join("\n") %>
+      </code>
     </pre>
   </div>
 </article>
