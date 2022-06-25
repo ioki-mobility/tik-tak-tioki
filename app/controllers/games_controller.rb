@@ -16,8 +16,7 @@ class GamesController < ApplicationController
   end
 
   def join
-    game = Game.find_by_name!(params[:name])
-    result = GameJoiner.new(game).join!
+    result = GameJoiner.new(current_game).join!
 
     render_result result
   end
