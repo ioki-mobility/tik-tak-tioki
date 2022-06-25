@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameOperationResult
   attr_accessor :game,
                 :acting_player,
@@ -11,17 +13,17 @@ class GameOperationResult
 
   def success!
     self.success = true
-    return self
+    self
   end
 
   def error!(message)
     self.success = false
     self.error_message = message
-    return self
+    self
   end
 
   def successful?
-    !!self.success
+    !!success
   end
 
   def failed?

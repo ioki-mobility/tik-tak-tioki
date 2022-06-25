@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Games', type: :request do
@@ -36,7 +38,7 @@ RSpec.describe 'Games', type: :request do
     end
 
     context 'with invalid player token' do
-      before { get "/api/game?player_token=WRONG-TOKEN" }
+      before { get '/api/game?player_token=WRONG-TOKEN' }
 
       it 'returns an error message' do
         expect(body['error']).to eql('No valid player_token provided')
@@ -48,7 +50,7 @@ RSpec.describe 'Games', type: :request do
     end
 
     context 'without player token' do
-      before { get "/api/game" }
+      before { get '/api/game' }
 
       it 'returns an error message' do
         expect(body['error']).to eql('No valid player_token provided')
@@ -114,20 +116,18 @@ RSpec.describe 'Games', type: :request do
         expect(response).to have_http_status(:not_found)
       end
     end
-
   end
 
-
   describe 'POST /api/move' do
-    let(:game) { Factory.create_game!(active_role: "x") }
+    let(:game) { Factory.create_game!(active_role: 'x') }
     let(:token) { game.player_x.token }
 
     context 'with valid player token and params' do
       let(:params) do
-        { field: "1", next_move_token: game.next_move_token }
+        { field: '1', next_move_token: game.next_move_token }
       end
 
-      before { post "/api/move?player_token=#{token}", params: params }
+      before { post "/api/move?player_token=#{token}", params: }
 
       it_behaves_like 'rendered game'
 
@@ -138,10 +138,10 @@ RSpec.describe 'Games', type: :request do
 
     context 'with invalid next move token' do
       let(:params) do
-        { field: "1", next_move_token: "INVALID-TOKEN" }
+        { field: '1', next_move_token: 'INVALID-TOKEN' }
       end
 
-      before { post "/api/move?player_token=#{token}", params: params }
+      before { post "/api/move?player_token=#{token}", params: }
 
       it_behaves_like 'rendered error'
 
@@ -156,10 +156,10 @@ RSpec.describe 'Games', type: :request do
 
     context 'with invalid field' do
       let(:params) do
-        { field: "WRONG-FIELD", next_move_token: game.next_move_token }
+        { field: 'WRONG-FIELD', next_move_token: game.next_move_token }
       end
 
-      before { post "/api/move?player_token=#{token}", params: params }
+      before { post "/api/move?player_token=#{token}", params: }
 
       it_behaves_like 'rendered error'
 
@@ -173,7 +173,7 @@ RSpec.describe 'Games', type: :request do
     end
 
     context 'with invalid player token' do
-      before { post "/api/move?player_token=WRONG-TOKEN" }
+      before { post '/api/move?player_token=WRONG-TOKEN' }
 
       it_behaves_like 'rendered error'
 

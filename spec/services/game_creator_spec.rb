@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe GameCreator do
   subject { described_class.new }
@@ -19,7 +21,7 @@ RSpec.describe GameCreator do
   end
 
   describe 'create!' do
-    subject (:result) { described_class.new.create! }
+    subject(:result) { described_class.new.create! }
 
     it 'responds with a positive result' do
       expect(result).to be_successful

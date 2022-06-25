@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameStateCalculator
   attr_accessor :game
 
@@ -5,31 +7,29 @@ class GameStateCalculator
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8]
-  ]
+  ].freeze
 
   COLUMNS = [
     ROWS.map(&:first),
     ROWS.map(&:second),
     ROWS.map(&:third)
-  ]
+  ].freeze
 
   DIAGONALS = [
     [ROWS.first.first, ROWS.second.second, ROWS.third.third],
     [ROWS.first.third, ROWS.second.second, ROWS.third.first]
-  ]
+  ].freeze
 
   def initialize(game)
     self.game = game
   end
 
   def new_state
-    if !game.playing?
-      return game.state
-    end
+    return game.state unless game.playing?
 
-    if player_won?("x")
+    if player_won?('x')
       Game.states[:win_by_player_x]
-    elsif player_won?("o")
+    elsif player_won?('o')
       Game.states[:win_by_player_o]
     elsif all_fields_taken?
       Game.states[:draw]

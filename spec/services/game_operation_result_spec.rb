@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe GameOperationResult do
   let(:game) { Game.new }
@@ -23,9 +25,9 @@ RSpec.describe GameOperationResult do
 
   context 'failed operation' do
     it 'can be marked as failed with an explaining message' do
-      outcome = result.error! "No space left!"
+      outcome = result.error! 'No space left!'
       expect(outcome).to be_failed
-      expect(outcome.error_message).to eql("No space left!")
+      expect(outcome.error_message).to eql('No space left!')
     end
   end
 end

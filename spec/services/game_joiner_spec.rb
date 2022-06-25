@@ -1,8 +1,10 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe GameJoiner do
   let(:game) { GameCreator.new.create!.game }
-  subject (:result) { described_class.new(game).join! }
+  subject(:result) { described_class.new(game).join! }
 
   context 'game can be joined' do
     it 'responds with a positive result' do
@@ -24,7 +26,6 @@ RSpec.describe GameJoiner do
     it 'randomly assigns the active player' do
       games = 10.times.map { Factory.create_game! }
 
-
       player_x_chosen_once = games.find { |g| g.active_player == g.player_x }
       expect(player_x_chosen_once).to be
 
@@ -40,7 +41,7 @@ RSpec.describe GameJoiner do
 
     it 'responds with a failed result' do
       expect(result).to be_failed
-      expect(result.error_message).to eql("Game does not await another player to join")
+      expect(result.error_message).to eql('Game does not await another player to join')
     end
 
     it 'does not set an acting player, to not leak any information' do
