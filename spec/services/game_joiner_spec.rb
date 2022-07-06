@@ -11,8 +11,9 @@ RSpec.describe GameJoiner do
       expect(result).to be_successful
     end
 
-    it 'always sets player o as the acting player' do
+    it 'always sets player o as the acting player', product_decision: true do |example|
       expect(result.acting_player).to be(game.player_o)
+      expect(example).to be_a_product_decision
     end
 
     it 'sets the game correctly on the result' do

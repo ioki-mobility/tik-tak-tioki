@@ -27,8 +27,9 @@ RSpec.describe GameCreator do
       expect(result).to be_successful
     end
 
-    it 'always sets player x as the acting player' do
+    it 'always sets player x as the acting player', product_decision: true do |example|
       expect(result.acting_player).to be(result.game.player_x)
+      expect(example).to be_a_product_decision
     end
 
     it 'generates a persisted game' do
