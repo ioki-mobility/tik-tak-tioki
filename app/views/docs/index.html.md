@@ -1,6 +1,11 @@
-# Tic-Tac-Toe
+# Tik Tak Tioki API Docs
 
-## General game concept
+- [General Game Concept](#general-game-concept)
+- [Resources](#resources)
+- [Endpoints](#endpoints)
+- [Debugger](#debugger)
+
+## General Game Concept
 
 The [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe) article sums up the game like this:
 
@@ -8,7 +13,7 @@ Tic-tac-toe is played on a three-by-three grid by two players, who alternately p
 
 The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.
 
-## How it works for this server
+## Game Server Concepts
 
 In order to play a game of Tic-Tac-Toe a `Game` has to be created by a client.
 
@@ -20,7 +25,7 @@ The client that joins the game will always be `Player O`.
 
 The system randomly chooses who is allowed to move first.
 
-If it's the player's turn, the active player then can send a `move` to the server, marking a free field on the game board.
+If it's the player's turn, the active player then can send a `move` request to the server, marking a free field on the game board.
 
 If it's the other player's turn, the inactive player needs to watch/poll the game state of the server to fetch the last move of the other player and switch into the active player role after that.
 
@@ -32,11 +37,13 @@ The server will determine if one of the players has won the game or the game end
 
 ## The `Game` object
 
-The `Game` object is the response of all successful calls to the endpoints and projects the state of a game for the authenticated player.
+The `Game` object projects the state of a game for the authenticated player.
+
+It is the response of all successful calls to the endpoints of the API.
 
 ### Example
 
-```language-json
+```json
 {
   "name": "towering-pot-1025",
   "state": "your_turn",
@@ -60,14 +67,14 @@ It must be used by the second player to join the game.
 
 #### `state` (String)
 
-Hello world, this is a blind text.
+The state of the current game.
 
-- `awaiting_join` Bla bla bal fs
-- `your_turn` Bla bla bal fs
-- `their_turn` Bla bla bal fs
-- `you_won` Bla bla bal fs
-- `they_won` Bla bla bal fs
-- `draw` Bla bla bal fs
+- `awaiting_join` You are waiting for a second player to join the game.
+- `your_turn` It is your turn and you mask make a move.
+- `their_turn` It's the other player's turn. You have to wait until they made a move.
+- `you_won` Game is over because you won.
+- `they_won` Game is over because the other player won.
+- `draw` Game is over, no one could win.
 
 
 #### `board` (String[])
@@ -88,7 +95,7 @@ The indices represent the grid like this:
 
 #### `player_token` (String)
 
-There is no registration, each game creates two completely new players.
+<mark>There is no registration, each game creates two completely new players.</mark>
 
 Each player gets a `player_token` when they either create or join a fresh game.
 
@@ -104,7 +111,7 @@ In order to create a new move on the player's behalf, a client must also always 
 
 This token will be regenerated after each move. It prevents race-conditions in your calls and proves that the move is meant to be applied to a very specific board state.
 
-If the player is not allowed to perform a move, the `next_move_token` is null.
+If the player is not allowed to perform a move, the `next_move_token` is `null`.
 
 #### `created_at` and `updated_at`
 
@@ -115,9 +122,9 @@ The `created_at` and `updated_at` timestamps are purely informational and should
 
 ### Example
 
-```language-json
+```json
 {
-  "message": "this did not work :("
+  "message": "This did not work :("
 }
 ```
 
@@ -129,18 +136,16 @@ An error message describing the problem.
 
 ---
 
-# API Docs
+# Endpoints
 
-asdlfjhsdalf dslfkj asdfklsjadfsldakj
-
-## Authentication
+The following endpoints are provided and can be used to build a complete client for the game.
 
 ## Start a new game
 
 
 **Request**
 
-```language-http
+```http
 POST <%= api_game_url %>
 Content-Type: application/json
 ```
@@ -150,20 +155,25 @@ Content-Type: application/json
 - `201` A new `Game` object
 - `422` An `Error` object
 
-....
+This is the starting point for every game.
 
-asdlfjhsdalf dslfkj asdfklsjadfsldakj
+One client needs to create a game.
+
+When the game is created, the client will act on behalf of `Player X` using the `player_token`.
+
+Once the game has been created, the client needs to wait for another player to join the game.
+
 
 ## Join a game
 
 **Request**
 
-```language-http
+```http
 POST <%= api_join_url %>
 Content-Type: application/json
 ```
 
-```language-json
+```json
 {
   "name": "<existing-game-name>"
 }
@@ -175,11 +185,20 @@ Content-Type: application/json
 - `404` The game was not found
 - `422` An `Error` object
 
+Besides creating a game, a client can also join a newly-created game that is awaiting a second player.
+
+In order to join a game, the client needs to know the `Game#name`.
+
+When the game is joined, the newly joined client will act on behalf of `Player O` using the `player_token`.
+
+Once the second player joined, it will be randomly chosen who will get the first move.
+
+
 ## Load a game
 
 **Request**
 
-```language-http
+```http
 GET <%= api_game_url(params: { player_token: "YOUR-PLAYER-TOKEN" }) %>
 Content-Type: application/json
 ```
@@ -190,43 +209,47 @@ Content-Type: application/json
 - `404` The game was not found
 - `401` An `Error` object - You did not provide a valid `player_token`
 
-....
+In order to update the current game state, clients need to fetch the latest information about ongoing games.
+
+Notable changes include:
+
+- Checking if it was the other players' turn or now yours
+- If it is your turn: Updating the `next_move_token`
+- Checking if the game is still ongoing or if somebody won or it's a draw
 
 ## Make a move
 
 **Request**
 
-```language-http
+```http
 POST <%= api_move_url(params: { player_token: "YOUR-PLAYER-TOKEN" }) %>
 Content-Type: application/json
 ```
 
-```language-json
+```json
 {
   "next_move_token": "<next-move-token>"
-  "field": "0"
+  "field": 0
 }
 ```
 
 **Params**
 
-- `next_move_token` - ...
-- `field` - ...
+- `next_move_token` - The token in the payload of the current game that proves the client knows the current state of the game
+- `field` - The field index on the board to set the mark on
 
 **Responses**
 
 - `201` The updated `Game` object
 - `401` An `Error` object - You did not provide a valid `player_token`
-- `422` An `Error` object
+- `422` An `Error` object - Another error occured, you provided incomplete or invalid data
 
 -----
 
-```language-plain
+```plain
 <%= AsciiBoardState.encode(%w(0 1 2 3 4 5 6 7 8)).join("\n") %>
 ```
 
 # Debugger
 
-This API comes with a built in debugger
-
-- Use url directly or form
+This API server comes with a built-in <%= link_to "debugger view", debugger_index_path %> that allows you to view the current game state for your player.
