@@ -169,7 +169,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    rdiscount (2.2.0.2)
+    redcarpet (3.5.1)
     redis (4.6.0)
     regexp_parser (2.5.0)
     reline (0.3.1)
@@ -244,7 +244,7 @@ DEPENDENCIES
   pry
   puma (~> 5.0)
   rails (~> 7.0.3)
-  rdiscount
+  redcarpet
   redis (~> 4.0)
   rspec-rails
   selenium-webdriver
