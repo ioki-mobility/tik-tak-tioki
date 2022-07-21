@@ -15,6 +15,15 @@ RSpec.describe 'Games', type: :request do
     end
   end
 
+  shared_examples 'rendered public game' do
+    it 'matches the schema of a public game response' do
+      body.each do |item|
+        expect(item).to have_key('name')
+        expect(item).to have_key('created_at')
+      end
+    end
+  end
+
   shared_examples 'rendered error' do
     it 'matches the schema of an error response' do
       expect(body).to have_key('error')
@@ -69,6 +78,20 @@ RSpec.describe 'Games', type: :request do
 
     it 'returns http success' do
       expect(response).to have_http_status(:created)
+    end
+  end
+
+  describe 'GET /api/join' do
+    context 'listing games that can be joined' do
+      let!(:game) { Factory.create_game!(state: 'awaiting_join') }
+
+      before { get '/api/join' }
+
+      it_behaves_like 'rendered public game'
+
+      it 'returns http success' do
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 

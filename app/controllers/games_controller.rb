@@ -17,6 +17,12 @@ class GamesController < ApplicationController
     render_result result
   end
 
+  def joinable_games
+    games = Game.recently_joinable.all
+
+    render json: games.map { |g| PublicGameSerializer.new(g) }
+  end
+
   def join
     result = GameJoiner.new(current_game).join!
 

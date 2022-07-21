@@ -41,6 +41,12 @@ class Game < ApplicationRecord
     players.find { |p| p.role == active_role }
   end
 
+  def self.recently_joinable
+    awaiting_join.where('created_at > ?', 5.minutes.ago).order(created_at: :desc)
+  end
+
+  private
+
   def validate_board_values
     valid_values = BOARD_FIELD_VALUES
 

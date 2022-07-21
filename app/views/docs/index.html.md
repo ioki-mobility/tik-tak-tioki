@@ -140,8 +140,8 @@ An error message describing the problem.
 
 The following endpoints are provided and can be used to build a complete client for the game.
 
-## Start a new game
 
+## Start a new game
 
 **Request**
 
@@ -162,6 +162,35 @@ One client needs to create a game.
 When the game is created, the client will act on behalf of `Player X` using the `player_token`.
 
 Once the game has been created, the client needs to wait for another player to join the game.
+
+
+## Finding a game to join
+
+**Request**
+
+```http
+GET <%= api_join_url %>
+Content-Type: application/json
+```
+
+**Responses**
+
+- `200` A new list of minimal `Game` objects (just containing `name` and `created_at`)
+
+This endpoint returns a list of recently created games (last five minutes) that still can be joined by a second player.
+
+```json
+[
+  {
+    "name": "panoramic-cicada-8502",
+    "created_at": "2022-07-21T08:29:21.828Z"
+  },
+  {
+    "name": "treasure-lark-2510",
+    "created_at": "2022-07-21T08:24:53.390Z"
+  }
+]
+```
 
 
 ## Join a game

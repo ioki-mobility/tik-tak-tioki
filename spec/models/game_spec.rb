@@ -131,21 +131,39 @@ RSpec.describe Game, type: :model do
         end
       end
     end
+  end
 
-    describe 'active_player' do
-      subject(:game) do
-        GameCreator.new.build
-      end
+  describe 'active_player' do
+    subject(:game) do
+      GameCreator.new.build
+    end
 
-      it 'returns player x when the active role is x' do
-        game.active_role = 'x'
-        expect(game.active_player).to eql(game.player_x)
-      end
+    it 'returns player x when the active role is x' do
+      game.active_role = 'x'
+      expect(game.active_player).to eql(game.player_x)
+    end
 
-      it 'returns player o when the active role is o' do
-        game.active_role = 'o'
-        expect(game.active_player).to eql(game.player_o)
-      end
+    it 'returns player o when the active role is o' do
+      game.active_role = 'o'
+      expect(game.active_player).to eql(game.player_o)
+    end
+  end
+
+  describe '.recently_joinable' do
+    it 'finds a game that was recently created and is still joinable' do
+      game = Factory.create_game!(state: 'awaiting_join')
+      expect(Game.recently_joinable).to eq [game]
+    end
+
+    it 'does not find a game that was recently created but is not joinable anymore' do
+      game = Factory.create_game!(state: 'playing')
+      expect(Game.recently_joinable).to eq []
+    end
+
+    it 'does not find a game that is joinable but was created to far in the past' do
+      game = Factory.create_game!(state: 'awaiting_join')
+      game.update_column(:created_at, 6.minutes.ago)
+      expect(Game.recently_joinable).to eq []
     end
   end
 end
