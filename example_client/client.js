@@ -6,7 +6,7 @@ let game = null;
 // API communication with the TicTacToe server
 // ----------------------------------------------
 
-const baseURL = "http://localhost:3000/api";
+const baseURL = "https://tik-tak-tioki.fly.dev/api";
 
 // Make a request to the server.
 // If the requests suceeds:

@@ -81,6 +81,5 @@ test:
 #
 production:
   <<: *default
-  database: tik_tak_tioki_production
-  username: tik_tak_tioki
-  password: <%= ENV["TIK_TAK_TIOKI_DATABASE_PASSWORD"] %>
+  database: tik_tak_tioki
+  url: <%= ENV["DATABASE_URL"] %>
