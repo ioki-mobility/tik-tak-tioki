@@ -2,10 +2,17 @@
 
 - [General Game Concept](#general-game-concept)
 - [Resources](#resources)
+  - [The Game object](#the-game-object)
+  - [The Error object](#the-error-object)
 - [Endpoints](#endpoints)
+  - [Start a new game](#start-a-new-game)
+  - [Find a game to join](#find-a-game-to-join)
+  - [Join a game](#join-a-game)
+  - [Load a game](#load-a-game)
+  - [Make a move](#make-a-move)
 - [Debugger](#debugger)
 
-## General Game Concept
+## Game Concept
 
 The [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe) article sums up the game like this:
 
@@ -13,7 +20,7 @@ Tic-tac-toe is played on a three-by-three grid by two players, who alternately p
 
 The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.
 
-## Game Server Concepts
+### Game Server Concepts
 
 In order to play a game of Tic-Tac-Toe a `Game` has to be created by a client.
 
@@ -164,7 +171,7 @@ When the game is created, the client will act on behalf of `Player X` using the 
 Once the game has been created, the client needs to wait for another player to join the game.
 
 
-## Finding a game to join
+## Find a game to join
 
 **Request**
 
