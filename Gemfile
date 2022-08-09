@@ -38,10 +38,16 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
+# Debugging
 gem 'awesome_print'
-gem 'pry'
+
+# Markdown Rendering
 gem 'redcarpet'
+
+# Enable CORS for API requests
 gem 'rack-cors'
+
+# Linting with Rubocop
 gem 'rubocop', require: false
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -61,6 +67,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'shoulda'
+  gem 'pry'
 end
 
 group :development do
