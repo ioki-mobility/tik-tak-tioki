@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope :api, as: "api" do
+  scope :api, as: 'api' do
     defaults format: :json do
       get '/game', controller: :games, action: :show
       post '/game', controller: :games, action: :create
@@ -9,11 +9,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :debugger, only: [:index, :show], param: :player_token do
+  resources :debugger, only: %i[index show], param: :player_token do
     collection do
       post 'view_game'
     end
   end
 
-  root "docs#index"
+  root 'docs#index'
 end
